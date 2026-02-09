@@ -297,7 +297,7 @@ export function Contact() {
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Быстрый ответ</h3>
                   <p className="text-sm text-slate-400 leading-relaxed">
-                    Отвечаем на все заявки в течение часа в рабочее время (пн-пт, 9:00-18:00 МСК)
+                    Отвечаем на все заявки в течение часа в рабочее время (пн-пт, 9:00-18:00 )
                   </p>
                 </div>
               </div>

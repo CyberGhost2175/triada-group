@@ -173,9 +173,7 @@ export function Footer() {
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-slate-500 flex items-center gap-1.5">
-              © 2026 TRIADA GROUP. Made with 
-              <Heart className="w-4 h-4 text-red-500 fill-red-500 inline animate-pulse" />
-              in Moscow
+              © 2026 TRIADA GROUP.
             </p>
             
             <div className="flex gap-8 text-sm text-slate-500">
