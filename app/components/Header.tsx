@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
@@ -8,11 +9,11 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { name: 'Услуги', href: '#services' },
-    { name: 'Дизайн', href: '#design' },
-    { name: 'Технологии', href: '#tech' },
-    { name: 'Процесс', href: '#process' },
-    { name: 'Контакты', href: '#contact' },
+    { name: 'Услуги', href: '/#services' },
+    { name: 'Дизайн', href: '/#design' },
+    { name: 'Технологии', href: '/#tech' },
+    { name: 'Процесс', href: '/#process' },
+    { name: 'Контакты', href: '/#contact' },
   ];
 
   return (
@@ -20,25 +21,26 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <motion.a
-            href="#"
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-3 group"
           >
-            <div className="relative flex-shrink-0 w-25 h-25">
-              <img
-                src="/triada-logo.svg"
-                alt="TRIADA GROUP"
-                width={100}
-                height={100}
-                className="object-contain w-full h-full"
-              />
-            </div>
-            <span className="text-xl font-semibold tracking-tight">
-              TRIADA <span className="text-slate-400">GROUP</span>
-            </span>
-          </motion.a>
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative flex-shrink-0 w-25 h-25">
+                <img
+                  src="/triada-logo.svg"
+                  alt="TRIADA GROUP"
+                  width={100}
+                  height={100}
+                  className="object-contain w-full h-full"
+                />
+              </div>
+              <span className="text-xl font-semibold tracking-tight">
+                TRIADA <span className="text-slate-400">GROUP</span>
+              </span>
+            </Link>
+          </motion.div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">
@@ -55,7 +57,7 @@ export function Header() {
               </motion.a>
             ))}
             <motion.a
-              href="#contact"
+              href="/#contact"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5 }}

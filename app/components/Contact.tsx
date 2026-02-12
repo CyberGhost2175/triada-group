@@ -77,8 +77,8 @@ export function Contact() {
     {
       icon: Phone,
       title: 'Телефон',
-      value: '+7 (775) 000 21-75',
-      href: 'tel:+77750002175',
+      value: '+7 (705) 116 86-80',
+      href: 'tel:+77051168680',
       gradient: 'from-purple-500 to-pink-500',
     },
   ];

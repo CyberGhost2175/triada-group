@@ -1,68 +1,9 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'motion/react';
-import { 
-  Globe, 
-  ShoppingCart, 
-  MessageSquare, 
-  Smartphone, 
-  Monitor, 
-  Database, 
-  Sparkles,
-  ArrowUpRight
-} from 'lucide-react';
-
-const services = [
-  {
-    icon: Globe,
-    title: 'Веб-приложения и сайты',
-    description: 'Современные веб-решения любой сложности с безупречным UX',
-    gradient: 'from-blue-500 to-cyan-500',
-    tags: ['React', 'Next.js', 'Node.js'],
-  },
-  {
-    icon: ShoppingCart,
-    title: 'E-commerce решения',
-    description: 'Интернет-магазины с высокой конверсией и интеграцией платёжных систем',
-    gradient: 'from-purple-500 to-pink-500',
-    tags: ['Shopify', 'WooCommerce', 'Custom'],
-  },
-  {
-    icon: MessageSquare,
-    title: 'Telegram / WhatsApp боты',
-    description: 'Умные боты для автоматизации бизнес-процессов и коммуникации',
-    gradient: 'from-emerald-500 to-teal-500',
-    tags: ['AI', 'Automation', 'Integration'],
-  },
-  {
-    icon: Smartphone,
-    title: 'Мобильные приложения',
-    description: 'Нативные iOS и Android приложения с современным дизайном',
-    gradient: 'from-orange-500 to-red-500',
-    tags: ['iOS', 'Android', 'React Native'],
-  },
-  {
-    icon: Monitor,
-    title: 'Десктопные приложения',
-    description: 'Кросс-платформенные решения для Windows, macOS и Linux',
-    gradient: 'from-indigo-500 to-purple-500',
-    tags: ['Electron', 'Tauri', 'Native'],
-  },
-  {
-    icon: Database,
-    title: 'CRM-системы',
-    description: 'Индивидуальные CRM с аналитикой и автоматизацией продаж',
-    gradient: 'from-violet-500 to-fuchsia-500',
-    tags: ['Custom CRM', 'Analytics', 'Integration'],
-  },
-  {
-    icon: Sparkles,
-    title: 'IT-продукты под ключ',
-    description: 'Полный цикл: от идеи и прототипа до запуска и поддержки',
-    gradient: 'from-amber-500 to-orange-500',
-    tags: ['Full-cycle', 'MVP', 'Support'],
-  },
-];
+import { ArrowUpRight } from 'lucide-react';
+import { servicesData } from '@/app/data/services';
 
 export function Services() {
   return (
@@ -100,9 +41,9 @@ export function Services() {
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => (
+          {servicesData.map((service, index) => (
             <motion.div
-              key={service.title}
+              key={service.slug}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -113,7 +54,10 @@ export function Services() {
               <div className={`absolute -inset-0.5 bg-gradient-to-r ${service.gradient} rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500`}></div>
               
               {/* Card */}
-              <div className="relative h-full p-8 rounded-2xl bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] hover:bg-white/[0.05] hover:border-white/10 transition-all duration-300">
+              <Link
+                href={`/services/${service.slug}`}
+                className="relative flex h-full flex-col p-8 rounded-2xl bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] hover:bg-white/[0.05] hover:border-white/10 transition-all duration-300"
+              >
                 {/* Icon */}
                 <div className="relative mb-6">
                   <div className={`absolute inset-0 bg-gradient-to-r ${service.gradient} rounded-xl opacity-20 blur-lg`}></div>
@@ -127,8 +71,8 @@ export function Services() {
                   {service.title}
                 </h3>
                 
-                <p className="text-slate-400 group-hover:text-slate-300 transition-colors mb-6 leading-relaxed text-[15px]">
-                  {service.description}
+                <p className="text-slate-400 group-hover:text-slate-300 transition-colors mb-6 leading-relaxed text-[15px] flex-1">
+                  {service.shortDescription}
                 </p>
 
                 {/* Tags */}
@@ -148,7 +92,7 @@ export function Services() {
                   <span>Подробнее</span>
                   <ArrowUpRight className="w-4 h-4 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
-              </div>
+              </Link>
             </motion.div>
           ))}
         </div>
