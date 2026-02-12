@@ -1,38 +1,9 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'motion/react';
-import { Palette, Smartphone, Monitor, Home, ArrowUpRight } from 'lucide-react';
-
-const designServices = [
-  {
-    icon: Palette,
-    title: 'UI/UX дизайн',
-    description: 'Создаём интуитивные интерфейсы, которые влюбляют пользователей с первого взаимодействия',
-    features: ['User Research', 'Prototyping', 'Usability Testing', 'Design Systems'],
-    gradient: 'from-blue-500 to-purple-500',
-  },
-  {
-    icon: Smartphone,
-    title: 'Мобильный дизайн',
-    description: 'Адаптивные дизайны для iOS и Android с вниманием к каждому пикселю и жесту',
-    features: ['iOS Guidelines', 'Material Design', 'Adaptive UI', 'Micro-animations'],
-    gradient: 'from-purple-500 to-pink-500',
-  },
-  {
-    icon: Monitor,
-    title: 'Web & Mobile интерфейсы',
-    description: 'Комплексный подход к созданию цифровых продуктов на всех платформах',
-    features: ['Responsive Design', 'Accessibility', 'Branding', 'Component Library'],
-    gradient: 'from-emerald-500 to-teal-500',
-  },
-  {
-    icon: Home,
-    title: 'Дизайн интерьеров',
-    description: 'Создаём гармоничные пространства для офисов, магазинов и жилых помещений',
-    features: ['3D Visualization', 'Space Planning', 'Material Selection', 'Supervision'],
-    gradient: 'from-orange-500 to-red-500',
-  },
-];
+import { ArrowUpRight } from 'lucide-react';
+import { designServicesData } from '@/app/data/designServices';
 
 export function DesignServices() {
   return (
@@ -70,9 +41,9 @@ export function DesignServices() {
 
         {/* Design Services Grid */}
         <div className="grid md:grid-cols-2 gap-8">
-          {designServices.map((service, index) => (
+          {designServicesData.map((service, index) => (
             <motion.div
-              key={service.title}
+              key={service.slug}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -83,9 +54,12 @@ export function DesignServices() {
               <div className={`absolute -inset-0.5 bg-gradient-to-r ${service.gradient} rounded-2xl opacity-0 group-hover:opacity-20 blur-2xl transition-opacity duration-500`}></div>
 
               {/* Card */}
-              <div className="relative h-full rounded-2xl bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] hover:bg-white/[0.05] hover:border-white/10 transition-all duration-300 overflow-hidden">
+              <Link
+                href={`/design/${service.slug}`}
+                className="relative flex flex-col h-full rounded-2xl bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] hover:bg-white/[0.05] hover:border-white/10 transition-all duration-300 overflow-hidden"
+              >
                 {/* Content */}
-                <div className="p-10">
+                <div className="p-10 flex-1 flex flex-col">
                   {/* Icon */}
                   <div className="relative mb-8">
                     <div className={`absolute inset-0 bg-gradient-to-r ${service.gradient} rounded-xl opacity-20 blur-lg`}></div>
@@ -99,8 +73,8 @@ export function DesignServices() {
                     {service.title}
                   </h3>
 
-                  <p className="text-slate-400 group-hover:text-slate-300 transition-colors mb-8 leading-relaxed">
-                    {service.description}
+                  <p className="text-slate-400 group-hover:text-slate-300 transition-colors mb-8 leading-relaxed flex-1">
+                    {service.shortDescription}
                   </p>
 
                   {/* Features Grid */}
@@ -125,7 +99,7 @@ export function DesignServices() {
 
                 {/* Decorative gradient bar */}
                 <div className={`h-1 bg-gradient-to-r ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity`}></div>
-              </div>
+              </Link>
             </motion.div>
           ))}
         </div>
