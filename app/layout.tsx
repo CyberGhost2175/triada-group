@@ -23,7 +23,7 @@ export const metadata: Metadata = {
       { url: "/triada-logo.svg", type: "image/svg+xml", sizes: "96x96" },
     ],
     apple: [
-      { url: "/triada-logo.svg", type: "image/svg+xml", sizes: "180x180" },
+      { url: "/triada-logo.svg", type: "image/svg+xml", sizes: "150x150" },
     ],
   },
 };

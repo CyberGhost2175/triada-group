@@ -27,7 +27,7 @@ export function Header() {
             className="flex items-center gap-3 group"
           >
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative flex-shrink-0 w-25 h-25">
+              <div className="relative flex-shrink-0 w-25 h-20">
                 <img
                   src="/triada-logo.svg"
                   alt="TRIADA GROUP"
