@@ -311,16 +311,19 @@ export function Contact() {
               </p>
               <div className="grid grid-cols-3 gap-3">
                 {[
-                  { name: 'Telegram', gradient: 'from-blue-500 to-cyan-500' },
-                  { name: 'WhatsApp', gradient: 'from-emerald-500 to-teal-500' },
-                  { name: 'Email', gradient: 'from-purple-500 to-pink-500' },
+                  { name: 'Telegram', gradient: 'from-blue-500 to-cyan-500', href: 'https://t.me/triada_workspace' },
+                  { name: 'WhatsApp', gradient: 'from-emerald-500 to-teal-500', href: 'https://wa.me/77051168680' },
+                  { name: 'Email', gradient: 'from-purple-500 to-pink-500', href: 'mailto:triada.workspace@gmail.com' },
                 ].map((messenger) => (
-                  <button
+                  <a
                     key={messenger.name}
-                    className={`p-4 rounded-xl bg-gradient-to-br ${messenger.gradient} hover:scale-105 transition-all text-center shadow-lg`}
+                    href={messenger.href}
+                    target={messenger.href.startsWith('mailto:') ? undefined : '_blank'}
+                    rel={messenger.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+                    className={`p-4 rounded-xl bg-gradient-to-br ${messenger.gradient} hover:scale-105 transition-all text-center shadow-lg font-medium text-sm`}
                   >
-                    <div className="text-xs font-medium">{messenger.name}</div>
-                  </button>
+                    {messenger.name}
+                  </a>
                 ))}
               </div>
             </div>
