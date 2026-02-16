@@ -1,30 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const WHATSAPP_TO = '77051168680'; // WhatsApp Business для уведомлений
 const EMAIL_TO = 'triada.workspace@gmail.com';
-
-function buildMessageText(data: { name: string; email: string; phone: string; service: string; message: string }) {
-  const serviceLabels: Record<string, string> = {
-    web: 'Веб-разработка',
-    mobile: 'Мобильные приложения',
-    design: 'Дизайн',
-    crm: 'CRM-система',
-    bot: 'Боты',
-    other: 'Другое',
-    '': '—',
-  };
-  const serviceLabel = (serviceLabels[data.service] ?? data.service) || '—';
-  return [
-    '🆕 *Новая заявка с сайта TRIADA GROUP*',
-    '',
-    `*Имя:* ${data.name}`,
-    `*Email:* ${data.email}`,
-    `*Телефон:* ${data.phone}`,
-    `*Услуга:* ${serviceLabel}`,
-    `*Сообщение:*`,
-    data.message || '—',
-  ].join('\n');
-}
 
 async function sendEmail(data: { name: string; email: string; phone: string; service: string; message: string }) {
   const apiKey = process.env.RESEND_API_KEY;
@@ -74,35 +50,52 @@ function escapeHtml(s: string) {
     .replace(/"/g, '&quot;');
 }
 
-async function sendWhatsApp(body: string): Promise<{ ok: boolean; error?: string }> {
-  const accountSid = process.env.TWILIO_ACCOUNT_SID;
-  const authToken = process.env.TWILIO_AUTH_TOKEN;
-  const from = process.env.TWILIO_WHATSAPP_FROM;
-  if (!accountSid || !authToken || !from) {
-    console.error('[WhatsApp] Не заданы TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN или TWILIO_WHATSAPP_FROM. Файл .env должен быть в корне проекта (рядом с package.json).');
-    return { ok: false, error: 'Twilio не настроен' };
+function buildTelegramHtml(data: { name: string; email: string; phone: string; service: string; message: string }) {
+  const serviceLabels: Record<string, string> = {
+    web: 'Веб-разработка',
+    mobile: 'Мобильные приложения',
+    design: 'Дизайн',
+    crm: 'CRM-система',
+    bot: 'Боты',
+    other: 'Другое',
+    '': '—',
+  };
+  const serviceLabel = (serviceLabels[data.service] ?? data.service) || '—';
+  const h = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return [
+    '🆕 <b>Новая заявка с сайта TRIADA GROUP</b>',
+    '',
+    `<b>Имя:</b> ${h(data.name)}`,
+    `<b>Email:</b> ${h(data.email)}`,
+    `<b>Телефон:</b> ${h(data.phone)}`,
+    `<b>Услуга:</b> ${h(serviceLabel)}`,
+    '<b>Сообщение:</b>',
+    h(data.message || '—'),
+  ].join('\n');
+}
+
+async function sendTelegram(data: { name: string; email: string; phone: string; service: string; message: string }): Promise<{ ok: boolean; error?: string }> {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) {
+    console.error('[Telegram] Не заданы TELEGRAM_BOT_TOKEN или TELEGRAM_CHAT_ID в .env');
+    return { ok: false, error: 'Telegram не настроен' };
   }
 
-  const auth = Buffer.from(`${accountSid}:${authToken}`).toString('base64');
-  const params = new URLSearchParams({
-    To: `whatsapp:+${WHATSAPP_TO}`,
-    From: from.startsWith('whatsapp:') ? from : `whatsapp:${from}`,
-    Body: body,
-  });
-
-  const res = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`, {
+  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Basic ${auth}`,
-    },
-    body: params.toString(),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text: buildTelegramHtml(data),
+      parse_mode: 'HTML',
+    }),
   });
 
   const json = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    const msg = json.message || json.error_message || res.statusText;
-    console.error('[WhatsApp] Twilio error:', res.status, msg, json);
+  if (!res.ok || !json.ok) {
+    const msg = json.description || res.statusText;
+    console.error('[Telegram] Error:', res.status, msg, json);
     return { ok: false, error: msg };
   }
   return { ok: true };
@@ -128,16 +121,14 @@ export async function POST(request: NextRequest) {
       message: String(message ?? '').trim(),
     };
 
-    const messageText = buildMessageText(data);
-
     try {
       await sendEmail(data);
     } catch (err) {
       console.error('Resend error:', err);
     }
-    const waResult = await sendWhatsApp(messageText);
-    if (!waResult.ok) {
-      console.error('[WhatsApp] Не удалось отправить:', waResult.error);
+    const tgResult = await sendTelegram(data);
+    if (!tgResult.ok) {
+      console.error('[Telegram] Не удалось отправить:', tgResult.error);
     }
 
     return NextResponse.json({ success: true });
