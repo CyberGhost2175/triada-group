@@ -76,29 +76,41 @@ function buildTelegramHtml(data: { name: string; email: string; phone: string; s
 
 async function sendTelegram(data: { name: string; email: string; phone: string; service: string; message: string }): Promise<{ ok: boolean; error?: string }> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chatId) {
+  const chatIdsRaw = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatIdsRaw) {
     console.error('[Telegram] Не заданы TELEGRAM_BOT_TOKEN или TELEGRAM_CHAT_ID в .env');
     return { ok: false, error: 'Telegram не настроен' };
   }
 
-  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text: buildTelegramHtml(data),
-      parse_mode: 'HTML',
-    }),
-  });
-
-  const json = await res.json().catch(() => ({}));
-  if (!res.ok || !json.ok) {
-    const msg = json.description || res.statusText;
-    console.error('[Telegram] Error:', res.status, msg, json);
-    return { ok: false, error: msg };
+  const chatIds = chatIdsRaw.split(/[\s,]+/).map((id) => id.trim()).filter(Boolean);
+  if (chatIds.length === 0) {
+    console.error('[Telegram] TELEGRAM_CHAT_ID пустой');
+    return { ok: false, error: 'Нет chat_id' };
   }
-  return { ok: true };
+
+  const text = buildTelegramHtml(data);
+  let lastError: string | undefined;
+
+  for (const chatId of chatIds) {
+    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text,
+        parse_mode: 'HTML',
+      }),
+    });
+
+    const json = await res.json().catch(() => ({}));
+    if (!res.ok || !json.ok) {
+      const msg = json.description || res.statusText;
+      console.error('[Telegram] Error для chat_id', chatId, ':', res.status, msg, json);
+      lastError = msg;
+    }
+  }
+
+  return lastError ? { ok: false, error: lastError } : { ok: true };
 }
 
 export async function POST(request: NextRequest) {
