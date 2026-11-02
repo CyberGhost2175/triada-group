@@ -1,141 +1,179 @@
 {
   "meta": {
-    "title": "TRIADA GROUP",
-    "description": "International IT studio. We build websites, apps, and digital products for business."
+    "title": "Triada Group — Software Development Studio",
+    "description": "Triada Group designs and builds web platforms, mobile apps and automation tools for growing businesses. Clients worldwide."
   },
   "nav": {
     "services": "Services",
+    "work": "Work",
     "design": "Design",
-    "tech": "Tech",
+    "tech": "Technology",
     "process": "Process",
     "contact": "Contact",
-    "contactCta": "Get in touch"
+    "contactCta": "Book a call"
   },
   "hero": {
-    "badge": "Premium Digital Solutions",
-    "title1": "We build digital",
-    "title2": "products of the future",
-    "subtitle": "Full-cycle IT services for business. From idea to launch — we create solutions that deliver results",
-    "ctaProject": "Discuss a project",
-    "ctaServices": "Our services",
-    "statProjects": "Projects",
-    "statClients": "Happy clients",
-    "statSpecialists": "Specialists",
-    "statYears": "Years of experience"
+    "badge": "Software studio",
+    "title": "Software engineering for growing businesses",
+    "subtitle": "We design and build web platforms, mobile apps and automation tools. A small senior team, clear scope, predictable delivery.",
+    "ctaProject": "Book a call",
+    "ctaWork": "See our work"
   },
   "servicesSection": {
-    "badge": "Our services",
-    "title": "A full range of",
-    "titleAccent": "digital services",
-    "subtitle": "From idea to launch — we build technology that works for your business",
-    "more": "Learn more",
-    "ctaText": "Can’t find the service you need? We handle any IT challenge",
-    "ctaButton": "Discuss a project"
+    "badge": "Services",
+    "title": "What we build",
+    "subtitle": "Focused engineering and design, from first prototype to production.",
+    "more": "View details",
+    "ctaText": "Have a different challenge? Tell us about it.",
+    "ctaButton": "Start a conversation"
+  },
+  "workSection": {
+    "badge": "Selected work",
+    "title": "Recent projects",
+    "viewCase": "View case study",
+    "back": "All projects",
+    "problemLabel": "Problem",
+    "resultLabel": "Result",
+    "stackLabel": "Stack",
+    "projects": {
+      "platinum": {
+        "name": "Platinum",
+        "client": "Jewelry retail CRM",
+        "problem": "A jewelry retailer needed to automate sales, warehouse and cashier shifts across the floor.",
+        "result": "Order and checkout time dropped from a multi-step paper flow to a scan-and-pay in under a minute.",
+        "stack": "Next.js · Node.js · PostgreSQL",
+        "slides": {
+          "shift": "Shift dashboard",
+          "sales": "Sales floor",
+          "warehouse": "Warehouse"
+        }
+      },
+      "tisei": {
+        "name": "TiSei CRM",
+        "client": "Field service management",
+        "problem": "A service company needed one place to track jobs, technicians and routes instead of chats and spreadsheets.",
+        "result": "Dispatchers see live requests, revenue and routes — from a new ticket to a closed job on the map.",
+        "stack": "Next.js · Node.js · PostgreSQL",
+        "slides": {
+          "dashboard": "Dashboard",
+          "map": "Route map",
+          "users": "Users"
+        }
+      }
+    }
   },
   "designSection": {
     "badge": "Design",
-    "title": "We create",
-    "titleAccent": "visual magic",
-    "subtitle": "We turn ideas into a delightful user experience, with care for every detail",
-    "more": "Learn more",
-    "ctaTitle": "Need design that sells?",
-    "ctaText": "We’ll create a unique look that highlights your brand’s personality",
-    "ctaButton": "Order design"
+    "title": "Product design",
+    "subtitle": "Research, interface design and design systems, handled by the same team that builds the product.",
+    "more": "View details"
   },
   "tech": {
     "badge": "Technology",
-    "title": "We work with a",
-    "titleAccent": "modern stack",
-    "subtitle": "Proven technologies, with an eye on what’s next",
-    "statStack": "Technologies in stack",
-    "statUptime": "Uptime guarantee",
-    "statSupport": "Support",
-    "statQuality": "Code quality"
+    "title": "Our stack",
+    "subtitle": "We choose tools for the problem, not for the trend.",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "mobile": "Mobile",
+      "cloud": "Cloud"
+    },
+    "practices": {
+      "review": { "title": "Code review", "text": "on every pull request" },
+      "staging": { "title": "Staging", "text": "environment before every release" },
+      "cicd": { "title": "CI/CD", "text": "automated testing and deployment" },
+      "handover": { "title": "Handover", "text": "full documentation and source access" }
+    }
   },
   "process": {
-    "badge": "How we work",
-    "title": "A transparent",
-    "titleAccent": "path to results",
-    "subtitle": "A proven delivery process focused on outcomes",
+    "badge": "Process",
+    "title": "How we work",
+    "subtitle": "A clear path from brief to release.",
     "steps": {
       "1": {
-        "title": "Discovery & consulting",
-        "description": "We study your business, goals, and tasks. We analyse the audience and competitors"
+        "title": "Discovery",
+        "description": "We define goals, users and constraints, then agree on scope and budget in writing."
       },
       "2": {
         "title": "Design & architecture",
-        "description": "We create prototypes, design, and architecture — and align every step with you"
+        "description": "Prototypes and a technical plan, reviewed with you before development starts."
       },
       "3": {
         "title": "Development",
-        "description": "We write clean code using best practices and test at every stage"
+        "description": "Two-week sprints, code review on every change and a demo at the end of each sprint."
       },
       "4": {
         "title": "Launch",
-        "description": "We deploy the product, set up infrastructure, and train your team"
+        "description": "Deployment, monitoring and a handover session for your team."
       },
       "5": {
         "title": "Support",
-        "description": "24/7 support, metrics, and continuous product improvement"
+        "description": "Bug fixes, maintenance and ongoing improvements on a monthly plan."
       }
     },
-    "mvp": "2–3 weeks",
+    "mvp": "4–8 weeks",
     "mvpLabel": "Typical MVP timeline",
-    "method": "Agile/Scrum",
-    "methodLabel": "Methodology",
-    "warranty": "6 months",
-    "warrantyLabel": "Warranty"
+    "method": "2-week",
+    "methodLabel": "Sprints with demos",
+    "warranty": "3 months",
+    "warrantyLabel": "Bug-fix warranty after launch"
   },
   "contact": {
-    "badge": "Contact us",
-    "title": "Let’s start",
-    "titleAccent": "working together",
-    "subtitle": "Fill in the form and our manager will get back to you within an hour",
-    "name": "Name *",
+    "badge": "Contact",
+    "title": "Let's talk about your project",
+    "subtitle": "Tell us what you're building. We reply within one business day.",
+    "name": "Name",
     "namePlaceholder": "Your name",
-    "email": "Email *",
-    "phone": "Phone",
+    "email": "Email",
+    "company": "Company",
+    "companyOptional": "optional",
+    "companyPlaceholder": "Company name",
     "service": "Service",
     "servicePlaceholder": "Choose a service",
     "options": {
-      "web": "Web development",
-      "mobile": "Mobile apps",
+      "web": "Web application",
+      "mobile": "Mobile app",
       "design": "Design",
-      "crm": "CRM system",
-      "bot": "Bots",
-      "other": "Other"
+      "automation": "Automation",
+      "unsure": "Not sure yet"
     },
-    "message": "Message *",
+    "budget": "Budget",
+    "budgetPlaceholder": "Select a range",
+    "budgets": {
+      "under5": "Under $5k",
+      "5to15": "$5–15k",
+      "15to50": "$15–50k",
+      "50plus": "$50k+"
+    },
+    "message": "Message",
     "messagePlaceholder": "Tell us about your project...",
-    "submit": "Send request",
+    "submit": "Send message",
     "submitting": "Sending...",
-    "success": "Request sent! We’ll get back to you shortly.",
-    "error": "Could not send the request. Please try again later.",
+    "success": "Message sent. We’ll get back to you within one business day.",
+    "error": "Could not send the message. Please try again later.",
     "errorNetwork": "Send failed. Check your connection and try again.",
     "close": "Close",
-    "phoneTitle": "Phone",
-    "quickTitle": "Fast reply",
-    "quickText": "We reply to all requests within an hour during business hours (Mon–Fri, 9:00–18:00)",
-    "channelsTitle": "Reach us your way",
-    "channelsText": "Choose any channel — WhatsApp, Email, or phone. We’re always available!"
+    "preferCall": "Prefer a call?",
+    "bookCall": "Book a 30-minute intro call",
+    "hoursTitle": "Hours",
+    "hours": "Mon–Fri, 9:00–18:00 (UTC+5)"
   },
   "footer": {
-    "tagline": "An international premium IT studio. We build digital products that change business.",
+    "tagline": "Software studio building web, mobile and automation products for clients worldwide.",
     "services": "Services",
     "company": "Company",
     "resources": "Resources",
     "about": "About",
-    "portfolio": "Portfolio",
-    "tech": "Technology",
-    "process": "How we work",
+    "work": "Work",
     "faq": "FAQ",
-    "privacy": "Privacy policy",
-    "terms": "Terms of use",
-    "web": "Web development",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "web": "Web applications",
     "mobile": "Mobile apps",
-    "design": "UI/UX design",
-    "crm": "CRM systems",
-    "bots": "Bots"
+    "ecommerce": "E-commerce",
+    "crm": "Internal tools & CRM",
+    "bots": "Bots & automation",
+    "mvp": "MVP development"
   },
   "price": {
     "currency": "Currency:",
@@ -296,125 +334,105 @@
   "catalog": {
     "services": {
       "veb-prilozheniya-i-sajty": {
-        "title": "Web apps & websites",
-        "shortDescription": "Modern web solutions of any complexity with excellent UX",
-        "fullDescription": "We build corporate sites, landings, and web apps on React and Next.js. Responsive layout, fast load, SEO, and a convenient admin panel. Turnkey: from prototype to hosting.",
+        "title": "Web applications",
+        "shortDescription": "Web platforms, dashboards and marketing sites built with React and Next.js.",
+        "fullDescription": "We build web platforms, dashboards and marketing sites on React and Next.js. Clear information architecture, fast load, SEO where it matters, and an admin panel your team can actually use.",
         "priceNote": "Exact cost depends on page count, design, and integrations.",
         "features": [
-          "Responsive layout for all devices",
-          "SEO and fast loading",
+          "React and Next.js production builds",
+          "Dashboards and marketing sites",
           "Admin panel for content",
           "Analytics and CRM integration",
           "Support after launch"
         ]
       },
       "ecommerce-resheniya": {
-        "title": "E-commerce solutions",
-        "shortDescription": "Online stores with high conversion and payment integrations",
-        "fullDescription": "We build online stores and marketplaces: catalog, cart, payments (incl. Kaspi Pay, Halyk Bank), customer accounts, inventory. Platform-based or custom development for your business model.",
+        "title": "E-commerce",
+        "shortDescription": "Custom storefronts and Shopify builds, connected to payments, inventory and analytics.",
+        "fullDescription": "Custom storefronts and Shopify builds connected to payments, inventory and analytics. Catalog, checkout, customer accounts and reporting shaped around how you sell.",
         "priceNote": "Price depends on product count, payment methods, and integrations.",
         "features": [
-          "Kaspi Pay, Halyk, and other KZ payment systems",
-          "Convenient catalog and filters",
-          "Customer account and order history",
-          "Inventory and reports",
-          "Mobile version and PWA"
+          "Shopify or custom storefronts",
+          "Payments, inventory and analytics",
+          "Customer accounts and order history",
+          "Catalog, filters and checkout",
+          "Ongoing store support"
         ]
       },
       "telegram-whatsapp-boty": {
-        "title": "Telegram / WhatsApp bots",
-        "shortDescription": "Smart bots for process automation and communication",
-        "fullDescription": "Bots for orders, consulting, broadcasts, and routine automation. CRM, payment, and database integrations. Optional AI for answers and lead capture.",
+        "title": "Bots & automation",
+        "shortDescription": "Customer support, ordering and internal workflows automated through Telegram and WhatsApp.",
+        "fullDescription": "We automate customer support, ordering and internal workflows through Telegram and WhatsApp. CRM and payment integrations, with optional AI for replies and lead capture.",
         "priceNote": "Cost depends on scenarios, integrations, and message volume.",
         "features": [
-          "Orders and bookings via messenger",
-          "CRM and 1C integration",
-          "Broadcasts and notifications",
-          "Optional AI replies and intent recognition",
+          "Support and ordering in messengers",
+          "Internal workflow automation",
+          "CRM and payment integrations",
+          "Optional OpenAI replies",
           "Analytics and reports"
         ]
       },
       "mobilnye-prilozheniya": {
         "title": "Mobile apps",
-        "shortDescription": "Native iOS and Android apps with modern design",
-        "fullDescription": "iOS and Android apps: native or cross-platform (React Native). From a simple app to services with auth, payments, geolocation, and push. Publication in App Store and Google Play.",
+        "shortDescription": "iOS and Android apps built with React Native, with a native feel.",
+        "fullDescription": "iOS and Android apps built with React Native, with a native feel. From a focused MVP to products with auth, payments, push and store release.",
         "priceNote": "From MVP to a full product.",
         "features": [
-          "iOS and Android at once (cross-platform)",
-          "Design to Apple and Google guidelines",
+          "iOS and Android with React Native",
+          "Native-feel navigation and UI",
           "Payments, maps, push notifications",
-          "Store publishing and update support",
+          "App Store and Google Play release",
           "Support and iterations"
         ]
       },
-      "desktopnye-prilozheniya": {
-        "title": "Desktop apps",
-        "shortDescription": "Cross-platform solutions for Windows, macOS, and Linux",
-        "fullDescription": "Desktop apps on Electron or Tauri: one codebase for Windows, macOS, and Linux. Suited for internal systems, utilities, and data/media tools.",
-        "priceNote": "Depends on logic complexity and number of platforms.",
-        "features": [
-          "One app — Windows, macOS, Linux",
-          "Offline and local data",
-          "Auto-updates and security",
-          "System service integration",
-          "Installers and licensing"
-        ]
-      },
       "crm-sistemy": {
-        "title": "CRM systems",
-        "shortDescription": "Custom CRM with analytics and sales automation",
-        "fullDescription": "CRM tailored to your processes: contacts, deals, funnels, tasks, reports. Telephony, email, messengers, and 1C. Scenario automation and executive dashboards.",
+        "title": "Internal tools & CRM",
+        "shortDescription": "CRMs, admin panels and desktop tools shaped around how your team actually works.",
+        "fullDescription": "CRMs, admin panels and desktop tools (including Electron where needed) shaped around how your team actually works. Contacts, pipelines, dashboards and the internal workflows that don’t fit a generic SaaS.",
         "priceNote": "Estimate after process analysis and user count.",
         "features": [
-          "Sales funnels and deal stages",
-          "Tasks, reminders, calendar",
-          "Telephony and email integration",
-          "Real-time reports and analytics",
-          "Roles and access rights"
+          "Custom CRM and admin panels",
+          "Dashboards for the team",
+          "Desktop tools on Electron when needed",
+          "Roles, access and reporting",
+          "Integrations with existing systems"
         ]
       },
       "it-produkty-pod-klyuch": {
-        "title": "Turnkey IT products",
-        "shortDescription": "Full cycle: from idea and prototype to launch and support",
-        "fullDescription": "We take a project from idea to product: research, prototype, design, development, testing, launch, and post-release support. For startups and companies that want one team and one contract for the full cycle.",
+        "title": "MVP development",
+        "shortDescription": "From a scoped idea to a working product in weeks. Fixed scope, fixed timeline.",
+        "fullDescription": "From a scoped idea to a working product in weeks. We agree on a fixed scope and timeline, then design, build and launch an MVP you can put in front of users.",
         "priceNote": "Cost depends on product scope and timeline. Staged payment is possible.",
         "features": [
-          "Market research and MVP prototype",
-          "UI/UX design and development",
-          "Testing and launch",
-          "Support and growth after launch",
-          "One team, one contract"
+          "Scoped idea to a working product",
+          "Fixed scope and timeline",
+          "Prototype, build and launch",
+          "Handover with documentation",
+          "Path to the next iteration"
         ]
       }
     },
     "design": {
       "ui-ux-dizajn": {
         "title": "UI/UX design",
-        "shortDescription": "Intuitive interfaces that win users from the first interaction",
-        "fullDescription": "We research the audience, design flows, and visualise interfaces. Includes user research, wireframes, prototypes, visual design, and design systems. The result is a usable, distinctive product with a considered UX.",
+        "shortDescription": "Research, wireframes and interface design, validated with real users.",
+        "fullDescription": "Research, wireframes and interface design, validated with real users. We work with the same team that will build the product, so the design is ready for production.",
         "priceNote": "Depends on screen count, logic complexity, and stages (research, prototype, UI).",
-        "features": ["User Research", "Prototyping", "Usability Testing", "Design Systems"]
+        "features": ["User research", "Wireframes", "Interface design", "Usability testing"]
       },
       "mobilnyj-dizajn": {
         "title": "Mobile design",
-        "shortDescription": "Adaptive iOS and Android design with care for every pixel and gesture",
-        "fullDescription": "Mobile app design to Apple and Google guidelines: navigation, gestures, multi-screen layouts, micro-animations, and accessibility. Production-ready mockups and specs for iOS and Android.",
+        "shortDescription": "iOS and Android interfaces that follow platform conventions.",
+        "fullDescription": "iOS and Android interfaces that follow platform conventions: navigation, gestures, multi-screen layouts and accessibility. Production-ready mockups for engineering.",
         "priceNote": "Estimate by screen count and animation needs.",
-        "features": ["iOS Guidelines", "Material Design", "Adaptive UI", "Micro-animations"]
+        "features": ["iOS conventions", "Android conventions", "Adaptive UI", "Production-ready specs"]
       },
-      "web-mobile-interfejsy": {
-        "title": "Web & mobile interfaces",
-        "shortDescription": "A unified approach to digital products across platforms",
-        "fullDescription": "One visual and UX concept for web and mobile: branding, component library, responsive grids, and accessibility. Consistency of the product on every device and platform.",
-        "priceNote": "Cost depends on platforms and branding depth.",
-        "features": ["Responsive Design", "Accessibility", "Branding", "Component Library"]
-      },
-      "dizajn-intererov": {
-        "title": "Interior design",
-        "shortDescription": "Harmonious spaces for offices, stores, and homes",
-        "fullDescription": "Space planning, materials and furniture, 3D visualisation, and designer supervision. Offices, retail, and residential interiors — from concept to delivery within budget and timeline.",
-        "priceNote": "Depends on area, number of 3D views, and supervision stage.",
-        "features": ["3D Visualization", "Space Planning", "Material Selection", "Supervision"]
+      "dizajn-sistemy": {
+        "title": "Design systems",
+        "shortDescription": "Component libraries that keep your product consistent as it grows.",
+        "fullDescription": "Component libraries that keep your product consistent as it grows. Tokens, components and documentation the product team can reuse across web and mobile.",
+        "priceNote": "Cost depends on component count and platform coverage.",
+        "features": ["Component library", "Design tokens", "Documentation", "Web and mobile coverage"]
       }
     }
   }

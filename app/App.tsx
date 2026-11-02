@@ -1,5 +1,6 @@
 import { Hero } from './components/Hero';
 import { Services } from './components/Services';
+import { SelectedWork } from './components/SelectedWork';
 import { DesignServices } from './components/DesignServices';
 import { Technologies } from './components/Technologies';
 import { Process } from './components/Process';
@@ -9,10 +10,11 @@ import { Footer } from './components/Footer';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white">
+    <div className="min-h-screen bg-bg text-text">
       <Header />
       <Hero />
       <Services />
+      <SelectedWork />
       <DesignServices />
       <Technologies />
       <Process />

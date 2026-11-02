@@ -2,27 +2,46 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const EMAIL_TO = 'triada.workspace@gmail.com';
 
-async function sendEmail(data: { name: string; email: string; phone: string; service: string; message: string }) {
+type ContactPayload = {
+  name: string;
+  email: string;
+  company: string;
+  service: string;
+  budget: string;
+  message: string;
+};
+
+const serviceLabels: Record<string, string> = {
+  web: 'Web application',
+  mobile: 'Mobile app',
+  design: 'Design',
+  automation: 'Automation',
+  unsure: 'Not sure yet',
+  '': '—',
+};
+
+const budgetLabels: Record<string, string> = {
+  under5: 'Under $5k',
+  '5to15': '$5–15k',
+  '15to50': '$15–50k',
+  '50plus': '$50k+',
+  '': '—',
+};
+
+async function sendEmail(data: ContactPayload) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) return;
 
-  const serviceLabels: Record<string, string> = {
-    web: 'Веб-разработка',
-    mobile: 'Мобильные приложения',
-    design: 'Дизайн',
-    crm: 'CRM-система',
-    bot: 'Боты',
-    other: 'Другое',
-    '': '—',
-  };
   const serviceLabel = (serviceLabels[data.service] ?? data.service) || '—';
+  const budgetLabel = (budgetLabels[data.budget] ?? data.budget) || '—';
 
   const html = `
     <h2>Новая заявка с сайта TRIADA GROUP</h2>
     <p><strong>Имя:</strong> ${escapeHtml(data.name)}</p>
     <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
-    <p><strong>Телефон:</strong> ${escapeHtml(data.phone)}</p>
+    <p><strong>Компания:</strong> ${escapeHtml(data.company || '—')}</p>
     <p><strong>Услуга:</strong> ${escapeHtml(serviceLabel)}</p>
+    <p><strong>Бюджет:</strong> ${escapeHtml(budgetLabel)}</p>
     <p><strong>Сообщение:</strong></p>
     <p>${escapeHtml(data.message || '—')}</p>
   `;
@@ -50,31 +69,24 @@ function escapeHtml(s: string) {
     .replace(/"/g, '&quot;');
 }
 
-function buildTelegramHtml(data: { name: string; email: string; phone: string; service: string; message: string }) {
-  const serviceLabels: Record<string, string> = {
-    web: 'Веб-разработка',
-    mobile: 'Мобильные приложения',
-    design: 'Дизайн',
-    crm: 'CRM-система',
-    bot: 'Боты',
-    other: 'Другое',
-    '': '—',
-  };
+function buildTelegramHtml(data: ContactPayload) {
   const serviceLabel = (serviceLabels[data.service] ?? data.service) || '—';
+  const budgetLabel = (budgetLabels[data.budget] ?? data.budget) || '—';
   const h = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   return [
     '🆕 <b>Новая заявка с сайта TRIADA GROUP</b>',
     '',
     `<b>Имя:</b> ${h(data.name)}`,
     `<b>Email:</b> ${h(data.email)}`,
-    `<b>Телефон:</b> ${h(data.phone)}`,
+    `<b>Компания:</b> ${h(data.company || '—')}`,
     `<b>Услуга:</b> ${h(serviceLabel)}`,
+    `<b>Бюджет:</b> ${h(budgetLabel)}`,
     '<b>Сообщение:</b>',
     h(data.message || '—'),
   ].join('\n');
 }
 
-async function sendTelegram(data: { name: string; email: string; phone: string; service: string; message: string }): Promise<{ ok: boolean; error?: string }> {
+async function sendTelegram(data: ContactPayload): Promise<{ ok: boolean; error?: string }> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatIdsRaw = process.env.TELEGRAM_CHAT_ID;
   if (!token || !chatIdsRaw) {
@@ -116,7 +128,7 @@ async function sendTelegram(data: { name: string; email: string; phone: string; 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, service, message } = body;
+    const { name, email, company, service, budget, message } = body;
 
     if (!name?.trim() || !email?.trim()) {
       return NextResponse.json(
@@ -125,11 +137,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const data = {
+    const data: ContactPayload = {
       name: String(name).trim(),
       email: String(email).trim(),
-      phone: String(phone ?? '').trim(),
+      company: String(company ?? '').trim(),
       service: String(service ?? '').trim(),
+      budget: String(budget ?? '').trim(),
       message: String(message ?? '').trim(),
     };
 

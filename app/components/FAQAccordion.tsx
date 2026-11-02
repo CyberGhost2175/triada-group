@@ -16,12 +16,12 @@ export function FAQAccordion({ items }: { items: FAQItem[] }) {
         <AccordionItem
           key={i}
           value={`item-${i}`}
-          className="border-white/10 py-2 first:pt-0"
+          className="border-border py-2 first:pt-0"
         >
-          <AccordionTrigger className="text-left text-slate-200 hover:text-white hover:no-underline py-5 text-base font-medium">
+          <AccordionTrigger className="text-left text-text hover:text-accent hover:no-underline py-5 text-base font-medium">
             {item.question}
           </AccordionTrigger>
-          <AccordionContent className="text-slate-400 leading-relaxed pr-6">
+          <AccordionContent className="text-muted leading-relaxed pr-6">
             {item.answer}
           </AccordionContent>
         </AccordionItem>

@@ -27,7 +27,7 @@ export function PriceBlock({
   priceNote,
   ctaHref = '/#contact',
   ctaLabel,
-  ctaClassName = 'flex-shrink-0 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 transition-all font-medium shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 hover:scale-105',
+  ctaClassName = 'btn-primary shrink-0',
 }: PriceBlockProps) {
   const t = useTranslations('price');
   const { currency, setCurrency, rates, loading } = useCurrency();
@@ -41,17 +41,15 @@ export function PriceBlock({
     <div className="relative flex flex-col gap-6">
       {/* Currency switcher */}
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs text-slate-500 mr-1">{t('currency')}</span>
-        <div className="inline-flex rounded-xl border border-white/10 bg-white/[0.03] p-1">
+        <span className="text-xs text-muted mr-1">{t('currency')}</span>
+        <div className="inline-flex rounded-[12px] border border-border p-1">
           {CURRENCIES.map((c) => (
             <button
               key={c.code}
               type="button"
               onClick={() => setCurrency(c.code as Currency)}
-              className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all ${
-                currency === c.code
-                  ? 'bg-white/15 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+              className={`px-3.5 py-1.5 rounded-md text-sm ${
+                currency === c.code ? 'text-text bg-surface' : 'text-muted hover:text-text'
               }`}
               aria-pressed={currency === c.code}
             >
@@ -60,34 +58,22 @@ export function PriceBlock({
           ))}
         </div>
         {loading && (
-          <span className="text-xs text-slate-500">{t('loading')}</span>
+          <span className="text-xs text-muted">{t('loading')}</span>
         )}
       </div>
 
       <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
         <div className="flex items-start gap-4">
-          <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center">
-            <Banknote className="w-6 h-6 text-slate-400" />
-          </div>
+          <Banknote className="w-5 h-5 text-accent shrink-0 mt-1" strokeWidth={1.5} />
           <div>
-            <h2 className="text-lg font-semibold text-white mb-1">{t('title')}</h2>
-            <p className="text-2xl sm:text-3xl font-bold tabular-nums">
+            <p className="text-sm text-muted mb-1">{t('title')}</p>
+            <p className="text-2xl sm:text-3xl tabular-nums">
               {t('from')} {formatConvertedPrice(from, currency)} — {t('to')}{' '}
               {formatConvertedPrice(to, currency)}{' '}
-              <span className="text-slate-400 font-normal text-xl">
-                {symbol}
-              </span>
+              <span className="text-muted font-normal text-xl">{symbol}</span>
             </p>
-            {priceNote && (
-              <p className="text-slate-500 text-sm mt-2 max-w-md">
-                {priceNote}
-              </p>
-            )}
-            {currency !== 'KZT' && (
-              <p className="text-slate-600 text-xs mt-2">
-                {t('noteFx')}
-              </p>
-            )}
+            {priceNote && <p className="text-muted text-sm mt-2 max-w-md">{priceNote}</p>}
+            {currency !== 'KZT' && <p className="text-muted text-xs mt-2">{t('noteFx')}</p>}
           </div>
         </div>
         <Link href={ctaHref} className={ctaClassName}>

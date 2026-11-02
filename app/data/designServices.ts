@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { Palette, Smartphone, Monitor, Home } from 'lucide-react';
+import { Palette, Smartphone, Layers } from 'lucide-react';
 
 export type DesignServiceItem = {
   slug: string;
@@ -25,18 +25,11 @@ export const designServicesData: DesignServiceItem[] = [
     priceTo: 600000,
   },
   {
-    slug: 'web-mobile-interfejsy',
-    icon: Monitor,
+    slug: 'dizajn-sistemy',
+    icon: Layers,
     gradient: 'from-emerald-500 to-teal-500',
     priceFrom: 250000,
     priceTo: 1000000,
-  },
-  {
-    slug: 'dizajn-intererov',
-    icon: Home,
-    gradient: 'from-orange-500 to-red-500',
-    priceFrom: 300000,
-    priceTo: 1500000,
   },
 ];
 

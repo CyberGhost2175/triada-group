@@ -25,7 +25,7 @@ const portfolioMeta = [
 
 function PortfolioImage({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-white/10 bg-slate-800/50">
+    <div className="relative aspect-video w-full overflow-hidden rounded-[12px] border border-border bg-surface">
       <Image
         src={src}
         alt={alt}
@@ -34,8 +34,7 @@ function PortfolioImage({ src, alt }: { src: string; alt: string }) {
         className="h-full w-full object-cover"
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 800px"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-      <div className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-lg bg-black/50 backdrop-blur px-2.5 py-1.5 text-xs text-slate-300">
+      <div className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-[12px] border border-border bg-bg/80 px-2.5 py-1.5 text-xs text-muted">
         <Lock className="h-3.5 w-3.5" />
         NDA
       </div>
@@ -68,17 +67,17 @@ export default async function PortfolioPage({
       {list.map((item) => (
         <article
           key={item.id}
-          className={`group rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden hover:bg-white/[0.04] hover:border-white/15 transition-all duration-300 ${extraClass}`}
+          className={`card overflow-hidden ${extraClass}`}
         >
           <PortfolioImage src={item.image} alt={item.imageAlt} />
           <div className="p-5 sm:p-6">
-            <h3 className="text-xl font-semibold text-white mb-2">{item.title}</h3>
-            <p className="text-slate-400 text-sm leading-relaxed mb-4">{item.description}</p>
+            <h3 className="text-xl mb-2">{item.title}</h3>
+            <p className="text-muted text-sm leading-relaxed mb-4">{item.description}</p>
             <div className="flex flex-wrap gap-2">
               {item.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-lg bg-white/5 px-2.5 py-1 text-xs text-slate-400 border border-white/5"
+                  className="rounded-[12px] px-2.5 py-1 text-xs text-muted border border-border"
                 >
                   {tag}
                 </span>
@@ -91,56 +90,40 @@ export default async function PortfolioPage({
   );
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white">
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/3 left-0 w-[400px] h-[400px] bg-purple-500/5 rounded-full blur-3xl" />
-      </div>
-
+    <div className="min-h-screen bg-bg text-text">
       <Header />
 
-      <main className="relative pt-28 pb-24">
+      <main className="pt-28 pb-24">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-blue-400 transition-colors mb-12"
-          >
-            <ArrowLeft className="w-4 h-4" />
+          <Link href="/" className="inline-flex items-center gap-2 text-sm text-muted hover:text-accent mb-12">
+            <ArrowLeft className="w-4 h-4" strokeWidth={1.5} />
             {t('home')}
           </Link>
 
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
-            <span className="text-sm font-medium text-blue-400">{t('badge')}</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
-            {t('title')}{' '}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">
-              {t('titleAccent')}
-            </span>
+          <p className="section-label mb-4">{t('badge')}</p>
+          <h1 className="mb-4">
+            {t('title')} {t('titleAccent')}
           </h1>
-          <p className="text-lg text-slate-400 mb-14 max-w-2xl">{t('lead')}</p>
+          <p className="text-lg text-muted mb-14 max-w-2xl">{t('lead')}</p>
 
           <section className="mb-16">
-            <h2 className="text-sm font-medium text-slate-500 uppercase tracking-wider mb-6">{t('web')}</h2>
+            <h2 className="section-label mb-6">{t('web')}</h2>
             {renderCards(webItems)}
           </section>
 
           <section className="mb-16">
-            <h2 className="text-sm font-medium text-slate-500 uppercase tracking-wider mb-6">{t('design')}</h2>
+            <h2 className="section-label mb-6">{t('design')}</h2>
             {renderCards(designItems)}
           </section>
 
           <section className="mb-16">
-            <h2 className="text-sm font-medium text-slate-500 uppercase tracking-wider mb-6">{t('mobile')}</h2>
+            <h2 className="section-label mb-6">{t('mobile')}</h2>
             {renderCards(mobileItems, 'sm:max-w-xl')}
           </section>
 
           <div className="text-center pt-8">
-            <p className="text-slate-500 mb-6">{t('cta')}</p>
-            <Link
-              href="/#contact"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 transition-all font-medium"
-            >
+            <p className="text-muted mb-6">{t('cta')}</p>
+            <Link href="/#contact" className="btn-primary">
               {t('contactUs')}
             </Link>
           </div>

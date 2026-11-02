@@ -1,112 +1,55 @@
 'use client';
 
-import { motion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { servicesData } from '@/app/data/services';
+import { Reveal } from '@/app/components/Reveal';
 
 export function Services() {
   const t = useTranslations('servicesSection');
   const catalog = useTranslations('catalog.services');
 
   return (
-    <section id="services" className="relative py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/5 to-transparent"></div>
+    <section id="services" className="page-section">
+      <div className="wrap">
+        <Reveal className="text-center mb-16">
+          <p className="section-label mb-4">{t('badge')}</p>
+          <h2 className="mb-5">{t('title')}</h2>
+          <p className="text-lg text-muted max-w-2xl mx-auto">{t('subtitle')}</p>
+        </Reveal>
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
-            <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
-            <span className="text-sm font-medium text-blue-400">{t('badge')}</span>
-          </div>
-
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
-            {t('title')}{' '}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">
-              {t('titleAccent')}
-            </span>
-          </h2>
-
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto font-light">{t('subtitle')}</p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {servicesData.map((service, index) => (
-            <motion.div
-              key={service.slug}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group relative transition-transform duration-500 hover:-translate-y-1"
-            >
-              <div
-                className={`absolute -inset-0.5 bg-gradient-to-r ${service.gradient} rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500`}
-              ></div>
-
-              <Link
-                href={`/services/${service.slug}`}
-                className="relative flex h-full flex-col p-8 rounded-2xl bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] hover:bg-white/[0.05] hover:border-white/10 transition-all duration-300"
-              >
-                <div className="relative mb-6">
-                  <div className={`absolute inset-0 bg-gradient-to-r ${service.gradient} rounded-xl opacity-20 blur-lg`}></div>
-                  <div
-                    className={`relative w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center shadow-lg`}
-                  >
-                    <service.icon className="w-7 h-7 text-white" strokeWidth={2} />
-                  </div>
-                </div>
-
-                <h3 className="text-xl font-semibold mb-3 group-hover:text-white transition-colors">
-                  {catalog(`${service.slug}.title`)}
-                </h3>
-
-                <p className="text-slate-400 group-hover:text-slate-300 transition-colors mb-6 leading-relaxed text-[15px] flex-1">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {servicesData.map((service) => (
+            <Reveal key={service.slug}>
+              <Link href={`/services/${service.slug}`} className="card flex h-full flex-col p-7 hover:border-accent/40">
+                <service.icon className="w-6 h-6 text-accent mb-6" strokeWidth={1.5} />
+                <h3 className="text-lg mb-3">{catalog(`${service.slug}.title`)}</h3>
+                <p className="text-muted leading-relaxed text-[15px] flex-1 mb-6">
                   {catalog(`${service.slug}.shortDescription`)}
                 </p>
-
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2 mb-5">
                   {service.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 text-xs font-medium rounded-lg bg-white/[0.03] border border-white/[0.08] text-slate-400 group-hover:border-white/20 transition-colors"
-                    >
+                    <span key={tag} className="px-2.5 py-1 text-xs text-muted border border-border rounded-[12px]">
                       {tag}
                     </span>
                   ))}
                 </div>
-
-                <div className="flex items-center gap-2 text-sm font-medium text-slate-500 group-hover:text-blue-400 transition-colors">
+                <div className="flex items-center gap-2 text-sm text-accent">
                   <span>{t('more')}</span>
-                  <ArrowUpRight className="w-4 h-4 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  <ArrowUpRight className="w-4 h-4" strokeWidth={1.5} />
                 </div>
               </Link>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-center mt-16"
-        >
-          <p className="text-slate-400 mb-6">{t('ctaText')}</p>
-          <Link
-            href="/#contact"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 transition-all font-medium shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 hover:scale-105"
-          >
+        <Reveal className="text-center mt-16">
+          <p className="text-muted mb-6">{t('ctaText')}</p>
+          <Link href="/#contact" className="btn-primary">
             {t('ctaButton')}
           </Link>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );
