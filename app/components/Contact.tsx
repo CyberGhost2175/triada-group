@@ -3,8 +3,29 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Phone, Send, MessageCircle, CheckCircle2, XCircle, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
+
+function formatKzPhone(value: string): string {
+  let digits = value.replace(/\D/g, '');
+  if (digits.startsWith('8')) digits = '7' + digits.slice(1);
+  if (!digits.startsWith('7')) digits = digits ? '7' + digits : '';
+  digits = digits.slice(0, 11);
+  if (!digits) return '';
+  const rest = digits.slice(1);
+  let out = '+7';
+  if (rest.length === 0) return out;
+  out += ' (' + rest.slice(0, 3);
+  if (rest.length <= 3) return out;
+  out += ') ' + rest.slice(3, 6);
+  if (rest.length <= 6) return out;
+  out += '-' + rest.slice(6, 8);
+  if (rest.length <= 8) return out;
+  out += '-' + rest.slice(8, 10);
+  return out;
+}
 
 export function Contact() {
+  const t = useTranslations('contact');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -39,7 +60,7 @@ export function Contact() {
       if (!res.ok) {
         setNotification({
           type: 'error',
-          message: data.error || 'Не удалось отправить заявку. Попробуйте позже.',
+          message: data.error || t('error'),
         });
         return;
       }
@@ -47,12 +68,12 @@ export function Contact() {
       setFormData({ name: '', email: '', phone: '', service: '', message: '' });
       setNotification({
         type: 'success',
-        message: 'Заявка отправлена! Мы свяжемся с вами в ближайшее время.',
+        message: t('success'),
       });
     } catch {
       setNotification({
         type: 'error',
-        message: 'Ошибка отправки. Проверьте интернет и попробуйте снова.',
+        message: t('errorNetwork'),
       });
     } finally {
       setIsSubmitting(false);
@@ -60,14 +81,16 @@ export function Contact() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: name === 'phone' ? formatKzPhone(value) : value,
     });
   };
 
   const contactInfo = [
     {
+      id: 'email-triada',
       icon: Mail,
       title: 'Email',
       value: 'triada.workspace@gmail.com',
@@ -75,10 +98,11 @@ export function Contact() {
       gradient: 'from-blue-500 to-cyan-500',
     },
     {
+      id: 'phone',
       icon: Phone,
-      title: 'Телефон',
-      value: '+7 (705) 116 86-80',
-      href: 'tel:+77051168680',
+      title: t('phoneTitle'),
+      value: '+7 (776) 724-97-75',
+      href: 'tel:+77767249775',
       gradient: 'from-purple-500 to-pink-500',
     },
   ];
@@ -102,19 +126,17 @@ export function Contact() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
             <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
-            <span className="text-sm font-medium text-blue-400">Связаться с нами</span>
+            <span className="text-sm font-medium text-blue-400">{t('badge')}</span>
           </div>
 
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
-            Начнём{' '}
+            {t('title')}{' '}
             <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">
-              сотрудничество
+              {t('titleAccent')}
             </span>
           </h2>
 
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto font-light">
-            Заполните форму, и наш менеджер свяжется с вами в течение часа
-          </p>
+          <p className="text-xl text-slate-400 max-w-3xl mx-auto font-light">{t('subtitle')}</p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12">
@@ -149,7 +171,7 @@ export function Contact() {
                       type="button"
                       onClick={() => setNotification(null)}
                       className="ml-auto p-1.5 rounded-lg hover:bg-white/10 transition-colors opacity-70 hover:opacity-100"
-                      aria-label="Закрыть"
+                      aria-label={t('close')}
                     >
                       <X className="w-5 h-5" />
                     </button>
@@ -159,7 +181,7 @@ export function Contact() {
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
-                    Имя *
+                    {t('name')}
                   </label>
                   <input
                     type="text"
@@ -169,13 +191,13 @@ export function Contact() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3.5 rounded-xl bg-white/[0.03] backdrop-blur-sm border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all"
-                    placeholder="Ваше имя"
+                    placeholder={t('namePlaceholder')}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
-                    Email *
+                    {t('email')}
                   </label>
                   <input
                     type="email"
@@ -193,7 +215,7 @@ export function Contact() {
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-slate-300 mb-2">
-                    Телефон
+                    {t('phone')}
                   </label>
                   <input
                     type="tel"
@@ -202,13 +224,16 @@ export function Contact() {
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full px-4 py-3.5 rounded-xl bg-white/[0.03] backdrop-blur-sm border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all"
-                    placeholder="+7 (999) 123-45-67"
+                    placeholder="+7 (___) ___-__-__"
+                    inputMode="tel"
+                    autoComplete="tel"
+                    maxLength={18}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="service" className="block text-sm font-medium text-slate-300 mb-2">
-                    Услуга
+                    {t('service')}
                   </label>
                   <select
                     id="service"
@@ -217,30 +242,30 @@ export function Contact() {
                     onChange={handleChange}
                     className="w-full px-4 py-3.5 rounded-xl bg-white/[0.03] backdrop-blur-sm border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all"
                   >
-                    <option value="" className="bg-slate-900">Выберите услугу</option>
-                    <option value="web" className="bg-slate-900">Веб-разработка</option>
-                    <option value="mobile" className="bg-slate-900">Мобильные приложения</option>
-                    <option value="design" className="bg-slate-900">Дизайн</option>
-                    <option value="crm" className="bg-slate-900">CRM-система</option>
-                    <option value="bot" className="bg-slate-900">Боты</option>
-                    <option value="other" className="bg-slate-900">Другое</option>
+                    <option value="" className="bg-slate-900">{t('servicePlaceholder')}</option>
+                    <option value="web" className="bg-slate-900">{t('options.web')}</option>
+                    <option value="mobile" className="bg-slate-900">{t('options.mobile')}</option>
+                    <option value="design" className="bg-slate-900">{t('options.design')}</option>
+                    <option value="crm" className="bg-slate-900">{t('options.crm')}</option>
+                    <option value="bot" className="bg-slate-900">{t('options.bot')}</option>
+                    <option value="other" className="bg-slate-900">{t('options.other')}</option>
                   </select>
                 </div>
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">
-                  Сообщение *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={6}
-                  required
-                  className="w-full px-4 py-3.5 rounded-xl bg-white/[0.03] backdrop-blur-sm border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all resize-none"
-                  placeholder="Расскажите о вашем проекте..."
+                    {t('message')}
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows={6}
+                    required
+                    className="w-full px-4 py-3.5 rounded-xl bg-white/[0.03] backdrop-blur-sm border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all resize-none"
+                    placeholder={t('messagePlaceholder')}
                 />
               </div>
 
@@ -249,7 +274,7 @@ export function Contact() {
                 disabled={isSubmitting}
                 className="w-full px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 flex items-center justify-center gap-2 font-medium hover:scale-[1.02]"
               >
-                {isSubmitting ? 'Отправка...' : 'Отправить заявку'}
+                {isSubmitting ? t('submitting') : t('submit')}
                 <Send className="w-5 h-5" />
               </button>
             </form>
@@ -267,7 +292,7 @@ export function Contact() {
             <div className="space-y-4">
               {contactInfo.map((info, index) => (
                 <motion.a
-                  key={info.title}
+                  key={info.id}
                   href={info.href}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -295,24 +320,19 @@ export function Contact() {
               <div className="flex items-start gap-3 mb-6">
                 <MessageCircle className="w-6 h-6 text-blue-400 flex-shrink-0 mt-1" strokeWidth={2} />
                 <div>
-                  <h3 className="text-lg font-semibold mb-2">Быстрый ответ</h3>
-                  <p className="text-sm text-slate-400 leading-relaxed">
-                    Отвечаем на все заявки в течение часа в рабочее время (пн-пт, 9:00-18:00 )
-                  </p>
+                  <h3 className="text-lg font-semibold mb-2">{t('quickTitle')}</h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">{t('quickText')}</p>
                 </div>
               </div>
             </div>
 
             {/* Additional Info */}
             <div className="p-8 rounded-2xl bg-white/[0.02] backdrop-blur-sm border border-white/[0.05]">
-              <h3 className="text-lg font-semibold mb-4">Связаться удобным способом</h3>
-              <p className="text-sm text-slate-400 mb-6 leading-relaxed">
-                Выбирайте любой удобный канал связи — Telegram, WhatsApp, Email или телефон. Мы всегда на связи!
-              </p>
-              <div className="grid grid-cols-3 gap-3">
+              <h3 className="text-lg font-semibold mb-4">{t('channelsTitle')}</h3>
+              <p className="text-sm text-slate-400 mb-6 leading-relaxed">{t('channelsText')}</p>
+              <div className="grid grid-cols-2 gap-3">
                 {[
-                  { name: 'Telegram', gradient: 'from-blue-500 to-cyan-500', href: 'https://t.me/triada_workspace' },
-                  { name: 'WhatsApp', gradient: 'from-emerald-500 to-teal-500', href: 'https://wa.me/77051168680' },
+                  { name: 'WhatsApp', gradient: 'from-emerald-500 to-teal-500', href: 'https://wa.me/77052401848' },
                   { name: 'Email', gradient: 'from-purple-500 to-pink-500', href: 'mailto:triada.workspace@gmail.com' },
                 ].map((messenger) => (
                   <a

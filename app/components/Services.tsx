@@ -1,18 +1,20 @@
 'use client';
 
-import Link from 'next/link';
 import { motion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import { servicesData } from '@/app/data/services';
 
 export function Services() {
+  const t = useTranslations('servicesSection');
+  const catalog = useTranslations('catalog.services');
+
   return (
     <section id="services" className="relative py-32 overflow-hidden">
-      {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/5 to-transparent"></div>
-      
+
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -22,24 +24,19 @@ export function Services() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
             <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
-            <span className="text-sm font-medium text-blue-400">Наши услуги</span>
+            <span className="text-sm font-medium text-blue-400">{t('badge')}</span>
           </div>
-          
+
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
-            Полный спектр{' '}
+            {t('title')}{' '}
             <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">
-              digital-услуг
+              {t('titleAccent')}
             </span>
           </h2>
-          
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto font-light">
-            От идеи до реализации — создаём технологичные решения,
-            <br className="hidden sm:block" />
-            которые работают на ваш бизнес
-          </p>
+
+          <p className="text-xl text-slate-400 max-w-3xl mx-auto font-light">{t('subtitle')}</p>
         </motion.div>
 
-        {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {servicesData.map((service, index) => (
             <motion.div
@@ -48,34 +45,33 @@ export function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group relative"
+              className="group relative transition-transform duration-500 hover:-translate-y-1"
             >
-              {/* Hover Glow Effect */}
-              <div className={`absolute -inset-0.5 bg-gradient-to-r ${service.gradient} rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500`}></div>
-              
-              {/* Card */}
+              <div
+                className={`absolute -inset-0.5 bg-gradient-to-r ${service.gradient} rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500`}
+              ></div>
+
               <Link
                 href={`/services/${service.slug}`}
                 className="relative flex h-full flex-col p-8 rounded-2xl bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] hover:bg-white/[0.05] hover:border-white/10 transition-all duration-300"
               >
-                {/* Icon */}
                 <div className="relative mb-6">
                   <div className={`absolute inset-0 bg-gradient-to-r ${service.gradient} rounded-xl opacity-20 blur-lg`}></div>
-                  <div className={`relative w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center shadow-lg`}>
+                  <div
+                    className={`relative w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center shadow-lg`}
+                  >
                     <service.icon className="w-7 h-7 text-white" strokeWidth={2} />
                   </div>
                 </div>
 
-                {/* Content */}
                 <h3 className="text-xl font-semibold mb-3 group-hover:text-white transition-colors">
-                  {service.title}
+                  {catalog(`${service.slug}.title`)}
                 </h3>
-                
+
                 <p className="text-slate-400 group-hover:text-slate-300 transition-colors mb-6 leading-relaxed text-[15px] flex-1">
-                  {service.shortDescription}
+                  {catalog(`${service.slug}.shortDescription`)}
                 </p>
 
-                {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {service.tags.map((tag) => (
                     <span
@@ -87,9 +83,8 @@ export function Services() {
                   ))}
                 </div>
 
-                {/* Arrow Icon */}
                 <div className="flex items-center gap-2 text-sm font-medium text-slate-500 group-hover:text-blue-400 transition-colors">
-                  <span>Подробнее</span>
+                  <span>{t('more')}</span>
                   <ArrowUpRight className="w-4 h-4 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
               </Link>
@@ -97,7 +92,6 @@ export function Services() {
           ))}
         </div>
 
-        {/* Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -105,15 +99,13 @@ export function Services() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-center mt-16"
         >
-          <p className="text-slate-400 mb-6">
-            Не нашли нужную услугу? Мы решаем любые IT-задачи
-          </p>
-          <a
-            href="#contact"
+          <p className="text-slate-400 mb-6">{t('ctaText')}</p>
+          <Link
+            href="/#contact"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 transition-all font-medium shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 hover:scale-105"
           >
-            Обсудить проект
-          </a>
+            {t('ctaButton')}
+          </Link>
         </motion.div>
       </div>
     </section>

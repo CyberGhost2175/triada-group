@@ -1,26 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { motion } from 'motion/react';
-import { Instagram } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import { LegalModals } from '@/app/components/LegalModals';
-
-function TikTokIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
-    </svg>
-  );
-}
-
-function TelegramIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
-    </svg>
-  );
-}
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -33,31 +17,29 @@ function WhatsAppIcon({ className }: { className?: string }) {
 export function Footer() {
   const [openPrivacy, setOpenPrivacy] = useState(false);
   const [openTerms, setOpenTerms] = useState(false);
+  const t = useTranslations('footer');
 
   const footerLinks = {
     services: [
-      { name: 'Веб-разработка', href: '/services/veb-prilozheniya-i-sajty' },
-      { name: 'Мобильные приложения', href: '/services/mobilnye-prilozheniya' },
-      { name: 'UI/UX дизайн', href: '/design/ui-ux-dizajn' },
-      { name: 'CRM-системы', href: '/services/crm-sistemy' },
-      { name: 'Боты', href: '/services/telegram-whatsapp-boty' },
+      { name: t('web'), href: '/services/veb-prilozheniya-i-sajty' as const },
+      { name: t('mobile'), href: '/services/mobilnye-prilozheniya' as const },
+      { name: t('design'), href: '/design/ui-ux-dizajn' as const },
+      { name: t('crm'), href: '/services/crm-sistemy' as const },
+      { name: t('bots'), href: '/services/telegram-whatsapp-boty' as const },
     ],
     company: [
-      { name: 'О компании', href: '/about' },
-      { name: 'Портфолио', href: '/portfolio' },
+      { name: t('about'), href: '/about' as const },
+      { name: t('portfolio'), href: '/portfolio' as const },
     ],
     resources: [
-      { name: 'Технологии', href: '/#tech' },
-      { name: 'Процесс работы', href: '/#process' },
-      { name: 'FAQ', href: '/faq' },
+      { name: t('tech'), href: '/#tech' as const },
+      { name: t('process'), href: '/#process' as const },
+      { name: t('faq'), href: '/faq' as const },
     ],
   };
 
   const socialLinks = [
-    { icon: TikTokIcon, href: 'https://www.tiktok.com/@triada.company?_r=1&_t=ZS-93tbIUTBCPB', label: 'TikTok', color: 'hover:text-gray-400' },
-    { icon: Instagram, href: 'https://www.instagram.com/triada.workspace?igsh=MTFqZmthc2wxNnFqMw==', label: 'Instagram', color: 'hover:text-pink-400' },
-    { icon: TelegramIcon, href: 'https://t.me/triada_workspace', label: 'Telegram', color: 'hover:text-sky-400' },
-    { icon: WhatsAppIcon, href: 'https://wa.me/77051168680', label: 'WhatsApp', color: 'hover:text-emerald-400' },
+    { icon: WhatsAppIcon, href: 'https://wa.me/77052401848', label: 'WhatsApp', color: 'hover:text-emerald-400' },
   ];
 
   return (
@@ -73,7 +55,7 @@ export function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <a href="#" className="flex items-center gap-3 mb-6 group">
+              <Link href="/" className="flex items-center gap-3 mb-6 group">
                 <div className="relative flex-shrink-0 w-20 h-20">
                   <img
                     src="/triada-logo.svg"
@@ -86,11 +68,9 @@ export function Footer() {
                 <span className="text-xl font-semibold">
                   TRIADA <span className="text-slate-400">GROUP</span>
                 </span>
-              </a>
+              </Link>
               
-              <p className="text-slate-400 mb-6 leading-relaxed max-w-sm">
-                Международная IT-студия премиум-класса. Создаём цифровые продукты, которые меняют бизнес.
-              </p>
+              <p className="text-slate-400 mb-6 leading-relaxed max-w-sm">{t('tagline')}</p>
 
               {/* Social Links */}
               <div className="flex gap-3">
@@ -115,7 +95,7 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <h3 className="font-semibold mb-4 text-white">Услуги</h3>
+            <h3 className="font-semibold mb-4 text-white">{t('services')}</h3>
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.name}>
@@ -137,19 +117,13 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h3 className="font-semibold mb-4 text-white">Компания</h3>
+            <h3 className="font-semibold mb-4 text-white">{t('company')}</h3>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
-                  {link.href.startsWith('/') ? (
-                    <Link href={link.href} className="text-slate-400 hover:text-white transition-colors text-sm">
-                      {link.name}
-                    </Link>
-                  ) : (
-                    <a href={link.href} className="text-slate-400 hover:text-white transition-colors text-sm">
-                      {link.name}
-                    </a>
-                  )}
+                  <Link href={link.href} className="text-slate-400 hover:text-white transition-colors text-sm">
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -162,19 +136,13 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <h3 className="font-semibold mb-4 text-white">Ресурсы</h3>
+            <h3 className="font-semibold mb-4 text-white">{t('resources')}</h3>
             <ul className="space-y-3">
               {footerLinks.resources.map((link) => (
                 <li key={link.name}>
-                  {link.href.startsWith('/') ? (
-                    <Link href={link.href} className="text-slate-400 hover:text-white transition-colors text-sm">
-                      {link.name}
-                    </Link>
-                  ) : (
-                    <a href={link.href} className="text-slate-400 hover:text-white transition-colors text-sm">
-                      {link.name}
-                    </a>
-                  )}
+                  <Link href={link.href} className="text-slate-400 hover:text-white transition-colors text-sm">
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -200,14 +168,14 @@ export function Footer() {
                 onClick={() => setOpenPrivacy(true)}
                 className="hover:text-white transition-colors text-left"
               >
-                Политика конфиденциальности
+                {t('privacy')}
               </button>
               <button
                 type="button"
                 onClick={() => setOpenTerms(true)}
                 className="hover:text-white transition-colors text-left"
               >
-                Условия использования
+                {t('terms')}
               </button>
             </div>
           </div>

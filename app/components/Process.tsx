@@ -2,46 +2,18 @@
 
 import { motion } from 'motion/react';
 import { MessageSquare, Lightbulb, Code, Rocket, TrendingUp } from 'lucide-react';
-
-const steps = [
-  {
-    number: '01',
-    title: 'Анализ и консультация',
-    description: 'Изучаем ваш бизнес, цели и задачи. Проводим анализ целевой аудитории и конкурентов',
-    icon: MessageSquare,
-    gradient: 'from-blue-500 to-cyan-500',
-  },
-  {
-    number: '02',
-    title: 'Проектирование',
-    description: 'Создаём прототипы, дизайн и архитектуру. Согласовываем каждый этап с вами',
-    icon: Lightbulb,
-    gradient: 'from-purple-500 to-pink-500',
-  },
-  {
-    number: '03',
-    title: 'Разработка',
-    description: 'Пишем чистый код по лучшим практикам. Проводим тестирование на каждом этапе',
-    icon: Code,
-    gradient: 'from-emerald-500 to-teal-500',
-  },
-  {
-    number: '04',
-    title: 'Запуск',
-    description: 'Деплоим проект, настраиваем инфраструктуру и проводим обучение вашей команды',
-    icon: Rocket,
-    gradient: 'from-orange-500 to-red-500',
-  },
-  {
-    number: '05',
-    title: 'Поддержка',
-    description: 'Обеспечиваем техподдержку 24/7, собираем метрики и улучшаем продукт',
-    icon: TrendingUp,
-    gradient: 'from-violet-500 to-fuchsia-500',
-  },
-];
+import { useTranslations } from 'next-intl';
 
 export function Process() {
+  const t = useTranslations('process');
+  const steps = [
+    { number: '01', key: '1' as const, icon: MessageSquare, gradient: 'from-blue-500 to-cyan-500' },
+    { number: '02', key: '2' as const, icon: Lightbulb, gradient: 'from-purple-500 to-pink-500' },
+    { number: '03', key: '3' as const, icon: Code, gradient: 'from-emerald-500 to-teal-500' },
+    { number: '04', key: '4' as const, icon: Rocket, gradient: 'from-orange-500 to-red-500' },
+    { number: '05', key: '5' as const, icon: TrendingUp, gradient: 'from-violet-500 to-fuchsia-500' },
+  ];
+
   return (
     <section id="process" className="relative py-32 overflow-hidden">
       {/* Background */}
@@ -58,19 +30,17 @@ export function Process() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 mb-6">
             <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></div>
-            <span className="text-sm font-medium text-orange-400">Процесс работы</span>
+            <span className="text-sm font-medium text-orange-400">{t('badge')}</span>
           </div>
 
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
-            Прозрачный{' '}
+            {t('title')}{' '}
             <span className="bg-gradient-to-r from-orange-400 via-red-400 to-pink-400 bg-clip-text text-transparent">
-              путь к успеху
+              {t('titleAccent')}
             </span>
           </h2>
 
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto font-light">
-            Проверенная методология разработки с фокусом на результат
-          </p>
+          <p className="text-xl text-slate-400 max-w-3xl mx-auto font-light">{t('subtitle')}</p>
         </motion.div>
 
         {/* Process Steps */}
@@ -106,10 +76,10 @@ export function Process() {
                       </div>
                       <div className="flex-1">
                         <h3 className="text-2xl font-semibold mb-2 group-hover:text-white transition-colors">
-                          {step.title}
+                          {t(`steps.${step.key}.title`)}
                         </h3>
                         <p className="text-slate-400 group-hover:text-slate-300 transition-colors leading-relaxed">
-                          {step.description}
+                          {t(`steps.${step.key}.description`)}
                         </p>
                       </div>
                     </div>
@@ -135,21 +105,21 @@ export function Process() {
         >
           <div className="text-center">
             <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
-              2-3 недели
+              {t('mvp')}
             </div>
-            <div className="text-sm text-slate-400 font-medium">Средний срок MVP</div>
+            <div className="text-sm text-slate-400 font-medium">{t('mvpLabel')}</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
-              Agile/Scrum
+              {t('method')}
             </div>
-            <div className="text-sm text-slate-400 font-medium">Методология</div>
+            <div className="text-sm text-slate-400 font-medium">{t('methodLabel')}</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-2">
-              6 месяцев
+              {t('warranty')}
             </div>
-            <div className="text-sm text-slate-400 font-medium">Гарантия</div>
+            <div className="text-sm text-slate-400 font-medium">{t('warrantyLabel')}</div>
           </div>
         </motion.div>
       </div>

@@ -2,6 +2,7 @@
 
 import { motion } from 'motion/react';
 import { Code2, Layers, Zap } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const techCategories = [
   {
@@ -96,14 +97,15 @@ const techCategories = [
   },
 ];
 
-const stats = [
-  { value: '50+', label: 'Технологий в стеке' },
-  { value: '99.9%', label: 'Uptime гарантия' },
-  { value: '24/7', label: 'Техподдержка' },
-  { value: '100%', label: 'Качество кода' },
-];
-
 export function Technologies() {
+  const t = useTranslations('tech');
+  const stats = [
+    { value: '50+', label: t('statStack') },
+    { value: '99.9%', label: t('statUptime') },
+    { value: '24/7', label: t('statSupport') },
+    { value: '100%', label: t('statQuality') },
+  ];
+
   return (
     <section id="tech" className="relative py-32 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900/50 to-slate-950">
       {/* Background Effects */}
@@ -120,19 +122,17 @@ export function Technologies() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6">
             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-            <span className="text-sm font-medium text-emerald-400">Технологии</span>
+            <span className="text-sm font-medium text-emerald-400">{t('badge')}</span>
           </div>
 
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
-            Работаем с{' '}
+            {t('title')}{' '}
             <span className="bg-gradient-to-r from-emerald-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-              передовым стеком
+              {t('titleAccent')}
             </span>
           </h2>
 
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto font-light">
-            Используем проверенные технологии и следим за инновациями
-          </p>
+          <p className="text-xl text-slate-400 max-w-3xl mx-auto font-light">{t('subtitle')}</p>
         </motion.div>
 
         {/* Tech Categories Grid */}
@@ -144,7 +144,7 @@ export function Technologies() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group relative"
+              className="group relative transition-transform duration-500 hover:-translate-y-1"
             >
               {/* Glow Effect */}
               <div className={`absolute -inset-0.5 bg-gradient-to-r ${category.gradient} rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500`}></div>
